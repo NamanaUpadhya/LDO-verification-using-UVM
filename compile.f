@@ -1,0 +1,16 @@
++incdir+../env
++incdir+../sequences
++incdir+../tb
++incdir+../test
++incdir+../rtl
+../rtl/ldo1.vams
+../rtl/ldo1_intf.sv
+../env/ldo1_seq_item.sv
+../sequences/ldo1_base_seq.sv
+../env/ldo1_drv.sv
+../env/ldo1_mon.sv
+../tb/ldo1_scb.sv
+../env/ldo1_agnt.sv
+../tb/ldo1_env.sv
+../test/ldo1_base_test.sv
+../tb/top.sv
