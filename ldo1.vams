@@ -1,0 +1,201 @@
+`timescale 1ns/1ps
+`include "disciplines.vams"
+`define VDD_IO_LDO1_min 1.65
+`define VDD_IO_LDO1_max 3.3
+`define VDD_min 2.9
+`define VDD_max 3.65
+
+module ldo_1(EN_LDO1,DISCHG_LDO1,VSEL_LDO1,DVS_ON_LDO1,VREF_OP85V_LDO1,RESET_LDO1,PAD_LDO1,VDD_IO_LDO1,VDD_LDO1,GND_LDO1,PBKG,PWROK_LDO1);
+
+	input EN_LDO1;
+	input DISCHG_LDO1;
+	input [3:0] VSEL_LDO1;
+	logic VSEL_LDO1;
+	input DVS_ON_LDO1;
+	input VREF_OP85V_LDO1;
+	input RESET_LDO1;
+
+	output wreal PAD_LDO1;
+	input VDD_IO_LDO1;
+	input VDD_LDO1;
+	input GND_LDO1;
+	input PBKG;
+
+	output wreal PWROK_LDO1;
+//--------------------------------------------------------------------------------//	
+	real PAD_LDO1_r;
+	real EPSILON = 0.001;
+	real dropout_volt=0.15;
+//--------------------------------------------------------------------------------//	
+	reg EN_LDO1_reg;
+    reg DISCHG_LDO1_reg;
+    reg DVS_ON_LDO1_reg;
+    reg RESET_LDO1_reg;
+    reg VDD_IO_LDO1_reg;
+    reg PWROK_LDO1_reg;
+	reg VDD_LDO1_reg;
+//--------------------------------------------------------------------------------//	
+	//wreal PAD_LDO1,PWROK_LDO1;
+	wreal EN_LDO1;
+	wreal DISCHG_LDO1;
+	wreal DVS_ON_LDO1;
+	wreal VREF_OP85V_LDO1;
+	wreal RESET_LDO1;
+	wreal VDD_IO_LDO1;
+	wreal VDD_LDO1;
+	wreal GND_LDO1;
+	wreal PBKG;
+    
+	real PAD_LDO1_s;
+	real PWROK_LDO1_s;
+	
+	assign PAD_LDO1 = PAD_LDO1_s;
+	assign PWROK_LDO1 = PWROK_LDO1_s;
+
+	
+//--------------------------------------------------------------------------------//	
+	always@(VDD_IO_LDO1) begin
+		if(VDD_IO_LDO1 >= `VDD_IO_LDO1_min && VDD_IO_LDO1 <= `VDD_IO_LDO1_max)
+			VDD_IO_LDO1_reg = 1;
+		else
+			VDD_IO_LDO1_reg = 0;
+	end
+//--------------------------------------------------------------------------------//	
+	always@(EN_LDO1) begin
+		if(EN_LDO1>= `VDD_IO_LDO1_min && EN_LDO1<= `VDD_IO_LDO1_max)
+			EN_LDO1_reg = 1;
+		else
+			EN_LDO1_reg = 0;
+	end
+//--------------------------------------------------------------------------------//	
+	always@(DISCHG_LDO1) begin
+		if(DISCHG_LDO1>= `VDD_IO_LDO1_min && DISCHG_LDO1<= `VDD_IO_LDO1_max)
+			DISCHG_LDO1_reg = 1;
+		else
+			DISCHG_LDO1_reg = 0;
+	end
+//--------------------------------------------------------------------------------//	
+	always@(DVS_ON_LDO1) begin
+		if(DVS_ON_LDO1>= `VDD_IO_LDO1_min && DVS_ON_LDO1<= `VDD_IO_LDO1_max)
+			DVS_ON_LDO1_reg = 1;
+		else
+			DVS_ON_LDO1_reg = 0;
+	end
+//--------------------------------------------------------------------------------//	
+	always@(RESET_LDO1) begin
+		if(RESET_LDO1>= `VDD_IO_LDO1_min && RESET_LDO1<= `VDD_IO_LDO1_max)
+			RESET_LDO1_reg = 1;
+		else
+			RESET_LDO1_reg = 0;
+	end
+//--------------------------------------------------------------------------------//	
+	always@(VDD_LDO1)begin   
+	 if (`VDD_min <= VDD_LDO1&& VDD_LDO1<= `VDD_max)
+	    VDD_LDO1_reg=1;
+	 else 
+	   VDD_LDO1_reg=0;
+	 end
+//--------------------------------------------------------------------------------//	
+	always@(EN_LDO1_reg or DVS_ON_LDO1_reg or RESET_LDO1_reg or DISCHG_LDO1_reg or VSEL_LDO1 or VDD_LDO1_reg)begin
+		if(RESET_LDO1_reg)begin
+			PAD_LDO1_s = 0;
+			PWROK_LDO1_s = 0;
+			//$display("-------------reset-----------");
+		end
+		else if(DISCHG_LDO1_reg)begin
+			PAD_LDO1_s = 0;
+			PWROK_LDO1_s = 0;
+			//$display("-------------discharge-----------");
+		end
+		else if(EN_LDO1_reg==1 && VDD_LDO1_reg==1)begin
+			if(DVS_ON_LDO1_reg)begin//DVS_ON = 1
+			  check_vsel(VSEL_LDO1[3:0]);
+			  //$display("-------------DVS_ON_1-----------");
+			  //$display("-------------DVS_ON_1 vsel_check_done VSEL_LDO1=%b PAD_LDO1_s=%0.3f PAD_LDO1_r=%0.3f -----------",VSEL_LDO1[3:0],PAD_LDO1_s,PAD_LDO1_r);
+			  if(PAD_LDO1_r <= (VDD_LDO1- dropout_volt))begin
+				if(abs(PAD_LDO1_s - PAD_LDO1_r)<0.001)begin  //pad actual and ref value same
+					PAD_LDO1_s = PAD_LDO1_r;
+					if(PAD_LDO1_s >= 0.9 * PAD_LDO1_r) PWROK_LDO1_s = 1.8;
+					else PWROK_LDO1_s = 0;
+				//	$display("-------------DVS_ON_1 no_trans-----------");
+				end
+				else begin//there is transition in vsel
+					//$display("-------------DVS_ON_1 trans-----------");
+					if(PAD_LDO1_r > PAD_LDO1_s)begin//ref value is greater ramp up
+						//$display("-------------DVS_ON_1 trans_ramp_up PAD_LDO1_s=%0.3f PAD_LDO1_r=%0.3f -----------",PAD_LDO1_s,PAD_LDO1_r);
+						while(abs(PAD_LDO1_r - PAD_LDO1_s )> EPSILON) begin
+							//$display("-------------DVS_ON_1 ramp_up PAD_LDO1_s=%0.3f PAD_LDO1_r=%0.3f ----------",PAD_LDO1_s,PAD_LDO1_r);
+							PAD_LDO1_s = PAD_LDO1_s + 0.05;
+							#100000;
+						end
+						if(PAD_LDO1_s >= 0.9 * PAD_LDO1_r) PWROK_LDO1_s = 1.8;
+						else PWROK_LDO1_s = 0;
+						//$display("-------------DVS_ON_1 trans_ramp_up_ended-----------");
+				    end//ramp_up
+					else if (PAD_LDO1_r < PAD_LDO1_s)begin//ref value is lesser ramp down
+						//$display("-------------DVS_ON_1 trans_ramp_down PAD_LDO1_s=%0.3f PAD_LDO1_r=%0.3f -----------",PAD_LDO1_s,PAD_LDO1_r);
+						while((PAD_LDO1_s - PAD_LDO1_r)>EPSILON)begin
+							//$display("-------------DVS_ON_1 ramp_down PAD_LDO1_s=%0.3f PAD_LDO1_r=%0.3f ----------",PAD_LDO1_s,PAD_LDO1_r);
+							PAD_LDO1_s = PAD_LDO1_s - 0.05;
+							#100000;
+						end 
+						if(PAD_LDO1_s >= 0.9 * PAD_LDO1_r) PWROK_LDO1_s = 1.8;
+						else PWROK_LDO1_s = 0;
+						//$display("-------------DVS_ON_1 trans_ramp_down_ended-----------");
+				    end//ramp_down
+				  end//trans
+				end//drop_out
+				else begin
+					PAD_LDO1_s = (VDD_LDO1- dropout_volt);
+					if(PAD_LDO1_s >= 0.9 * PAD_LDO1_r) PWROK_LDO1_s = 1.8;
+					else PWROK_LDO1_s = 0;
+				end
+			end//DVS_ON=1
+			else begin //DVS_ON = 0
+				check_vsel(VSEL_LDO1[3:0]);
+				//$display("-------------DVS_ON_0 -----------");
+				//$display("------------- DVS_ON_0 PAD_LDO1_s=%0.3f PAD_LDO1_r=%0.3f ----------",PAD_LDO1_s,PAD_LDO1_r);
+				if(PAD_LDO1_r <= (VDD_LDO1- dropout_volt))begin
+					PAD_LDO1_s = PAD_LDO1_r;
+					if(PAD_LDO1_s >= 0.9 * PAD_LDO1_r) PWROK_LDO1_s = 1.8;
+					else PWROK_LDO1_s = 0;
+				end
+				else begin
+					PAD_LDO1_s = (VDD_LDO1- dropout_volt);
+					if(PAD_LDO1_s >= 0.9 * PAD_LDO1_r) PWROK_LDO1_s = 1.8;
+					else PWROK_LDO1_s = 0;
+				end
+				//$display("-------------DVS_ON_0 Ended PAD_LDO1_s=%0.3f PAD_LDO1_r=%0.3f ----------",PAD_LDO1_s,PAD_LDO1_r);
+			end//DVS_ON = 0
+		end//EN_LDO1_reg
+		else begin//EN_LDO1_reg==0
+			PAD_LDO1_s = 0;
+			PWROK_LDO1_s = 0;	
+		end
+	end//always
+	
+	task check_vsel(input [3:0] VSEL_LDO1);
+  	  begin
+	  case(VSEL_LDO1[3:0])
+		4'b0000:PAD_LDO1_r=2.55;
+		4'b0001:PAD_LDO1_r=2.60;
+		4'b0010:PAD_LDO1_r=2.65;
+		4'b0011:PAD_LDO1_r=2.70;
+		4'b0100:PAD_LDO1_r=2.75;
+		4'b0101:PAD_LDO1_r=2.80;
+		4'b0110:PAD_LDO1_r=2.85;
+		4'b0111:PAD_LDO1_r=2.90;
+		4'b1000:PAD_LDO1_r=2.95;
+		4'b1001:PAD_LDO1_r=3.00;
+		4'b1010:PAD_LDO1_r=3.05;
+		4'b1011:PAD_LDO1_r=3.10;
+		4'b1100:PAD_LDO1_r=3.15;
+		4'b1101:PAD_LDO1_r=3.20;
+		4'b1110:PAD_LDO1_r=3.25;
+		4'b1111:PAD_LDO1_r=3.30;
+		default:PAD_LDO1_r=2.55;
+	  endcase
+	end
+  endtask
+
+endmodule
