@@ -1,0 +1,163 @@
+xrun(64): 22.09-s003: (c) Copyright 1995-2022 Cadence Design Systems, Inc.
+TOOL:	xrun(64)	22.09-s003: Started on Aug 07, 2025 at 13:55:28 IST
+xrun
+	-uvm
+	+access+rwc
+	+UVM_TESTNAME=dvs_1_ramp_up_test
+	-f uvm_compile.f
+		+incdir+../env
+		+incdir+../sequences
+		+incdir+../tb
+		+incdir+../test
+		+incdir+../rtl
+		../rtl/ldo1.vams
+		../rtl/ldo1_intf.sv
+		../env/ldo1_seq_item.sv
+		../sequences/ldo1_base_seq.sv
+		../env/ldo1_drv.sv
+		../env/ldo1_mon.sv
+		../tb/ldo1_scb.sv
+		../env/ldo1_agnt.sv
+		../tb/ldo1_env.sv
+		../test/ldo1_base_test.sv
+		../tb/top.sv
+	-timescale 1ns/1ps
+	-64bit
+	-gui
+	-s
+xmsim: *W,NOMTDGUI: Multi-Threaded Dumping is disabled for interactive debug mode.
+SVSEED default: 1
+xmsim: *W,DSEM2009: This SystemVerilog design is simulated as per IEEE 1800-2009 SystemVerilog simulation semantics. Use -disable_sem2009 option for turning off SV 2009 simulation semantics.
+xcelium> 
+xcelium> source /cad/Cadence/Cadence_Latest/installs/XCELIUM2209/tools/xcelium/files/xmsimrc
+xcelium> source /cad/Cadence/Cadence_Latest/installs/XCELIUM2209/tools/methodology/UVM/CDNS-1.1d/additions/sv/files/tcl/uvm_sim.tcl
+xcelium> 
+-------------------------------------
+Relinquished control to SimVision...
+# Restoring simulation environment...
+xcelium> input -quiet .reinvoke.sim
+xcelium> file delete .reinvoke.sim
+xcelium> run
+----------------------------------------------------------------
+CDNS-UVM-1.1d (22.09-s003)
+(C) 2007-2013 Mentor Graphics Corporation
+(C) 2007-2013 Cadence Design Systems, Inc.
+(C) 2006-2013 Synopsys, Inc.
+(C) 2011-2013 Cypress Semiconductor Corp.
+----------------------------------------------------------------
+
+  ***********       IMPORTANT RELEASE NOTES         ************
+
+  You are using a version of the UVM library that has been compiled
+  with `UVM_NO_DEPRECATED undefined.
+  See http://www.eda.org/svdb/view.php?id=3313 for more details.
+
+  You are using a version of the UVM library that has been compiled
+  with `UVM_OBJECT_MUST_HAVE_CONSTRUCTOR undefined.
+  See http://www.eda.org/svdb/view.php?id=3770 for more details.
+
+      (Specify +UVM_NO_RELNOTES to turn off this notice)
+
+UVM_INFO @ 0: reporter [RNTST] Running test dvs_1_ramp_up_test...
+UVM_INFO @ 0: reporter [UVMTOP] UVM testbench topology:
+--------------------------------------------------------------
+Name                       Type                    Size  Value
+--------------------------------------------------------------
+uvm_test_top               dvs_1_ramp_up_test      -     @2728
+  env                      ldo1_env                -     @2787
+    agnt                   ldo1_agnt               -     @2818
+      drv                  ldo1_drv                -     @3569
+        rsp_port           uvm_analysis_port       -     @3668
+        seq_item_port      uvm_seq_item_pull_port  -     @3619
+      mon                  ldo1_mon                -     @3648
+        mon_ap             uvm_analysis_port       -     @3747
+      sqr                  uvm_sequencer           -     @2931
+        rsp_export         uvm_analysis_export     -     @2990
+        seq_item_export    uvm_seq_item_pull_imp   -     @3538
+        arbitration_queue  array                   0     -    
+        lock_queue         array                   0     -    
+        num_last_reqs      integral                32    'd1  
+        num_last_rsps      integral                32    'd1  
+    scb                    ldo1_scb                -     @2848
+      scb_ap               uvm_analysis_imp        -     @2897
+--------------------------------------------------------------
+
+UVM_INFO ../env/ldo1_mon.sv(90) @ 5000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 0, PAD=2.550, EN=1.800, DISCHG=0.000, RESET=0.000, VDD=3.650, DVS=0.000
+UVM_INFO ../env/ldo1_mon.sv(133) @ 5000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 0, PAD=2.550, EN=1.800
+UVM_INFO ../tb/ldo1_scb.sv(82) @ 5000: uvm_test_top.env.scb [LDO1_SCB] TEST PASSED VSEL=0 | PAD=2.550 | Expected=2.550 | PWROK =1.800
+UVM_INFO ../env/ldo1_mon.sv(90) @ 1100005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 0, PAD=2.550, EN=1.800, DISCHG=0.000, RESET=0.000, VDD=3.650, DVS=3.000
+UVM_INFO ../env/ldo1_mon.sv(133) @ 1100005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 0, PAD=2.550, EN=1.800
+UVM_INFO ../tb/ldo1_scb.sv(82) @ 1100005000: uvm_test_top.env.scb [LDO1_SCB] TEST PASSED VSEL=0 | PAD=2.550 | Expected=2.550 | PWROK =1.800
+UVM_INFO ../env/ldo1_mon.sv(90) @ 1200005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 1, PAD=2.600, EN=1.800, DISCHG=0.000, RESET=0.000, VDD=3.650, DVS=3.000
+UVM_INFO ../env/ldo1_mon.sv(133) @ 1200005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 1, PAD=2.600, EN=1.800
+UVM_INFO ../tb/ldo1_scb.sv(82) @ 1200005000: uvm_test_top.env.scb [LDO1_SCB] TEST PASSED VSEL=1 | PAD=2.600 | Expected=2.600 | PWROK =1.800
+UVM_INFO ../env/ldo1_mon.sv(90) @ 1300005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 10, PAD=2.650, EN=1.800, DISCHG=0.000, RESET=0.000, VDD=3.650, DVS=3.000
+UVM_INFO ../env/ldo1_mon.sv(133) @ 1300005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 10, PAD=2.650, EN=1.800
+UVM_INFO ../tb/ldo1_scb.sv(82) @ 1300005000: uvm_test_top.env.scb [LDO1_SCB] TEST PASSED VSEL=10 | PAD=2.650 | Expected=2.650 | PWROK =1.800
+UVM_INFO ../env/ldo1_mon.sv(90) @ 1400005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 11, PAD=2.700, EN=1.800, DISCHG=0.000, RESET=0.000, VDD=3.650, DVS=3.000
+UVM_INFO ../env/ldo1_mon.sv(133) @ 1400005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 11, PAD=2.700, EN=1.800
+UVM_INFO ../tb/ldo1_scb.sv(82) @ 1400005000: uvm_test_top.env.scb [LDO1_SCB] TEST PASSED VSEL=11 | PAD=2.700 | Expected=2.700 | PWROK =1.800
+UVM_INFO ../env/ldo1_mon.sv(90) @ 1500005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 100, PAD=2.750, EN=1.800, DISCHG=0.000, RESET=0.000, VDD=3.650, DVS=3.000
+UVM_INFO ../env/ldo1_mon.sv(133) @ 1500005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 100, PAD=2.750, EN=1.800
+UVM_INFO ../tb/ldo1_scb.sv(82) @ 1500005000: uvm_test_top.env.scb [LDO1_SCB] TEST PASSED VSEL=100 | PAD=2.750 | Expected=2.750 | PWROK =1.800
+UVM_INFO ../env/ldo1_mon.sv(90) @ 1600005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 101, PAD=2.800, EN=1.800, DISCHG=0.000, RESET=0.000, VDD=3.650, DVS=3.000
+UVM_INFO ../env/ldo1_mon.sv(133) @ 1600005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 101, PAD=2.800, EN=1.800
+UVM_INFO ../tb/ldo1_scb.sv(82) @ 1600005000: uvm_test_top.env.scb [LDO1_SCB] TEST PASSED VSEL=101 | PAD=2.800 | Expected=2.800 | PWROK =1.800
+UVM_INFO ../env/ldo1_mon.sv(90) @ 1700005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 110, PAD=2.850, EN=1.800, DISCHG=0.000, RESET=0.000, VDD=3.650, DVS=3.000
+UVM_INFO ../env/ldo1_mon.sv(133) @ 1700005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 110, PAD=2.850, EN=1.800
+UVM_INFO ../tb/ldo1_scb.sv(82) @ 1700005000: uvm_test_top.env.scb [LDO1_SCB] TEST PASSED VSEL=110 | PAD=2.850 | Expected=2.850 | PWROK =1.800
+UVM_INFO ../env/ldo1_mon.sv(90) @ 1800005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 111, PAD=2.900, EN=1.800, DISCHG=0.000, RESET=0.000, VDD=3.650, DVS=3.000
+UVM_INFO ../env/ldo1_mon.sv(133) @ 1800005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 111, PAD=2.900, EN=1.800
+UVM_INFO ../tb/ldo1_scb.sv(82) @ 1800005000: uvm_test_top.env.scb [LDO1_SCB] TEST PASSED VSEL=111 | PAD=2.900 | Expected=2.900 | PWROK =1.800
+UVM_INFO ../env/ldo1_mon.sv(90) @ 1900005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 1000, PAD=2.950, EN=1.800, DISCHG=0.000, RESET=0.000, VDD=3.650, DVS=3.000
+UVM_INFO ../env/ldo1_mon.sv(133) @ 1900005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 1000, PAD=2.950, EN=1.800
+UVM_INFO ../tb/ldo1_scb.sv(82) @ 1900005000: uvm_test_top.env.scb [LDO1_SCB] TEST PASSED VSEL=1000 | PAD=2.950 | Expected=2.950 | PWROK =1.800
+UVM_INFO ../env/ldo1_mon.sv(90) @ 2000005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 1001, PAD=3.000, EN=1.800, DISCHG=0.000, RESET=0.000, VDD=3.650, DVS=3.000
+UVM_INFO ../env/ldo1_mon.sv(133) @ 2000005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 1001, PAD=3.000, EN=1.800
+UVM_INFO ../tb/ldo1_scb.sv(82) @ 2000005000: uvm_test_top.env.scb [LDO1_SCB] TEST PASSED VSEL=1001 | PAD=3.000 | Expected=3.000 | PWROK =1.800
+UVM_INFO ../env/ldo1_mon.sv(90) @ 2100005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 1010, PAD=3.050, EN=1.800, DISCHG=0.000, RESET=0.000, VDD=3.650, DVS=3.000
+UVM_INFO ../env/ldo1_mon.sv(133) @ 2100005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 1010, PAD=3.050, EN=1.800
+UVM_INFO ../tb/ldo1_scb.sv(82) @ 2100005000: uvm_test_top.env.scb [LDO1_SCB] TEST PASSED VSEL=1010 | PAD=3.050 | Expected=3.050 | PWROK =1.800
+UVM_INFO ../env/ldo1_mon.sv(90) @ 2200005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 1011, PAD=3.100, EN=1.800, DISCHG=0.000, RESET=0.000, VDD=3.650, DVS=3.000
+UVM_INFO ../env/ldo1_mon.sv(133) @ 2200005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 1011, PAD=3.100, EN=1.800
+UVM_INFO ../tb/ldo1_scb.sv(82) @ 2200005000: uvm_test_top.env.scb [LDO1_SCB] TEST PASSED VSEL=1011 | PAD=3.100 | Expected=3.100 | PWROK =1.800
+UVM_INFO ../env/ldo1_mon.sv(90) @ 2300005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 1100, PAD=3.150, EN=1.800, DISCHG=0.000, RESET=0.000, VDD=3.650, DVS=3.000
+UVM_INFO ../env/ldo1_mon.sv(133) @ 2300005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 1100, PAD=3.150, EN=1.800
+UVM_INFO ../tb/ldo1_scb.sv(82) @ 2300005000: uvm_test_top.env.scb [LDO1_SCB] TEST PASSED VSEL=1100 | PAD=3.150 | Expected=3.150 | PWROK =1.800
+UVM_INFO ../env/ldo1_mon.sv(90) @ 2400005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 1101, PAD=3.200, EN=1.800, DISCHG=0.000, RESET=0.000, VDD=3.650, DVS=3.000
+UVM_INFO ../env/ldo1_mon.sv(133) @ 2400005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 1101, PAD=3.200, EN=1.800
+UVM_INFO ../tb/ldo1_scb.sv(82) @ 2400005000: uvm_test_top.env.scb [LDO1_SCB] TEST PASSED VSEL=1101 | PAD=3.200 | Expected=3.200 | PWROK =1.800
+UVM_INFO ../env/ldo1_mon.sv(90) @ 2500005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 1110, PAD=3.250, EN=1.800, DISCHG=0.000, RESET=0.000, VDD=3.650, DVS=3.000
+UVM_INFO ../env/ldo1_mon.sv(133) @ 2500005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 1110, PAD=3.250, EN=1.800
+UVM_INFO ../tb/ldo1_scb.sv(82) @ 2500005000: uvm_test_top.env.scb [LDO1_SCB] TEST PASSED VSEL=1110 | PAD=3.250 | Expected=3.250 | PWROK =1.800
+UVM_INFO ../env/ldo1_mon.sv(90) @ 2600005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 1111, PAD=3.300, EN=1.800, DISCHG=0.000, RESET=0.000, VDD=3.650, DVS=3.000
+UVM_INFO ../env/ldo1_mon.sv(133) @ 2600005000: uvm_test_top.env.agnt.mon [LDO1_MON] Sampled VSEL = 1111, PAD=3.300, EN=1.800
+UVM_INFO ../tb/ldo1_scb.sv(82) @ 2600005000: uvm_test_top.env.scb [LDO1_SCB] TEST PASSED VSEL=1111 | PAD=3.300 | Expected=3.300 | PWROK =1.800
+UVM_INFO /cad/Cadence/Cadence_Latest/installs/XCELIUM2209/tools/methodology/UVM/CDNS-1.1d/sv/src/base/uvm_objection.svh(1268) @ 2700000000: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+
+--- UVM Report catcher Summary ---
+
+
+Number of demoted UVM_FATAL reports  :    0
+Number of demoted UVM_ERROR reports  :    0
+Number of demoted UVM_WARNING reports:    0
+Number of caught UVM_FATAL reports   :    0
+Number of caught UVM_ERROR reports   :    0
+Number of caught UVM_WARNING reports :    0
+
+--- UVM Report Summary ---
+
+** Report counts by severity
+UVM_INFO :   54
+UVM_WARNING :    0
+UVM_ERROR :    0
+UVM_FATAL :    0
+** Report counts by id
+[LDO1_MON]    34
+[LDO1_SCB]    17
+[RNTST]     1
+[TEST_DONE]     1
+[UVMTOP]     1
+Simulation complete via $finish(1) at time 2700 US + 49
+/cad/Cadence/Cadence_Latest/installs/XCELIUM2209/tools/methodology/UVM/CDNS-1.1d/sv/src/base/uvm_root.svh:457     $finish;
+xcelium> 
